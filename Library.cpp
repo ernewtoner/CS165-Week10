@@ -1,33 +1,36 @@
 /*********************************************************************
  ** Author: Eric Newton
  ** Date: 11/30/2017
- ** Description: Library class implementation file.
+ ** Description: Library class implementation file. 
+
+A Library has holdings (LibraryItem objects), members (Patron objects), and methods to access the Patron that corresponds to a LibraryItem or vise versa, checkOut, request, or return a LibraryItem, and administer fines.
  *********************************************************************/
-//#include <iostream>
 #include <string>
 #include "Library.hpp"
 
-/*using std::cout;
-using std::cin;
-using std::endl;*/
-
 using std::string;
 
+// Default constructor, just set currentDate to 0
 Library::Library()
 {
   currentDate = 0;
 }
 
+// addLibraryItem to the holdings vector
 void Library::addLibraryItem(LibraryItem* b)
 {
   holdings.push_back(b);
 }
 
+// addPatron to the members vector
 void Library::addPatron(Patron* p)
 {
   members.push_back(p);
 }
 
+// checkOutLibraryItem given a certain patronID and ItemID
+// Handles cases of either not being found, the Item already being checked out or on hold, etc.
+// Updates the LibraryItem accordingly as well as the Patron's requestedBy & checkedOutItems
 string Library::checkOutLibraryItem(std::string patronID, std::string ItemID)
 {
   Patron* desiredPatron = getPatron(patronID);
@@ -61,7 +64,6 @@ string Library::checkOutLibraryItem(std::string patronID, std::string ItemID)
   desiredPatron->addLibraryItem(desiredLibraryItem);
 
   return "check out successful";
-  
 }
 
 string Library::returnLibraryItem(std::string ItemID)
